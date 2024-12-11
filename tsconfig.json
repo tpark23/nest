@@ -1,0 +1,7 @@
+{
+    "include": ["server/*"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "esModuleInterop": true
+    }
+}
