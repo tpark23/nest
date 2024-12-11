@@ -1,5 +1,4 @@
-// backend/index.ts
-// backend/index.ts
+// index.ts
 
 import express, { Request, Response } from "express";
 
