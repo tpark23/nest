@@ -3,14 +3,16 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 
-function App() {
-    const [data, setData] = useState(null);
-    const url = "http://localhost:3001";
+type Message = { message: string };
+
+function App(): JSX.Element {
+    const [data, setData] = useState<string | null>(null);
+    const url: string = "http://localhost:3001";
 
     useEffect(() => {
         fetch(`${url}/api`)
             .then((res) => res.json())
-            .then((data) => setData(data.message));
+            .then((data: Message) => setData(data.message));
     }, []);
 
     return (
