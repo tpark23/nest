@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "install-all": "concurrently -n \"S,C\" -c \"white,blue\" -p \"[{name}]\" \"cd client && npm i\" \"cd server && npm i\" ",
     "dev": "concurrently -n \"S,C\" -c \"white,blue\" -p \"[{name}]\"  \"cd server && npm run dev\" \"cd client && npm run dev\" "
   },
   "devDependencies": {
