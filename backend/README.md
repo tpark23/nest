@@ -5,7 +5,7 @@
 `$ source venv/scripts/activate`
 
 2. Install dependencies
-`pip install -r dependencies.txt`
+`pip install -r requirements.txt`
 
 3. Run Application
 dev - `fastapi dev main.py`
