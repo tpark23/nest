@@ -1,6 +1,9 @@
 # nest - Backend
 
 ## Steps 
+1. Download Virtual Environment
+`$ python -m venv venv`
+
 1. Activate Virtual Environment
 `$ source venv/scripts/activate`
 
