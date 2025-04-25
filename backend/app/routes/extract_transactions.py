@@ -23,6 +23,8 @@ async def extract_transactions_from_files(directory: str = UPLOAD_DIR):
 
     transactions = []
     failed_files = []
+    
+    total_files_count = len(os.listdir(directory))
 
     # Iterate through all files in the directory
     for filename in os.listdir(directory):
@@ -36,6 +38,8 @@ async def extract_transactions_from_files(directory: str = UPLOAD_DIR):
         except Exception as e:
             failed_files.append({"filename": filename, "error": str(e)})
             
+    
+    
     if failed_files:
         # If there are failed files, return a partial success response
         return JSONResponse(
@@ -44,6 +48,9 @@ async def extract_transactions_from_files(directory: str = UPLOAD_DIR):
                 "status_code": status.HTTP_207_MULTI_STATUS,
                 "status_desc": "Partial Success",
                 "message": "Some files were processed successfully, while others failed.",
+                "total_files_count": total_files_count,
+                "processed_files_count": total_files_count - len(failed_files),
+                "failed_files_count": len(failed_files),
                 "total_transactions": len(transactions),
                 "transactions": transactions,
                 "failed_files": failed_files,
@@ -55,6 +62,9 @@ async def extract_transactions_from_files(directory: str = UPLOAD_DIR):
         "status_code": status.HTTP_200_OK,
         "status_desc": "Success",
         "message": "All files were processed successfully",
+        "total_files_count": total_files_count,
+        "processed_files_count": total_files_count,
+        "failed_files_count": 0,
         "total_transactions": len(transactions),
         "transactions": transactions,
     }

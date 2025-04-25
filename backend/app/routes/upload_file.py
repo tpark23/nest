@@ -68,6 +68,7 @@ async def upload_file(files: list[UploadFile] = File(...)):
                 "status_code": status.HTTP_400_BAD_REQUEST,
                 "status_desc": "Bad Request",
                 "message": "No files were uploaded successfully",
+                "failed_files_count": len(failed_files),
                 "failed_files": failed_files,
             },
         )
@@ -80,6 +81,8 @@ async def upload_file(files: list[UploadFile] = File(...)):
                 "status_code": status.HTTP_207_MULTI_STATUS,
                 "status_desc": "Partial Success",
                 "message": "Some files were not uploaded successfully",
+                "total_files_count": len(uploaded_files),
+                "failed_files_count": len(failed_files),
                 "uploaded_files": uploaded_files,
                 "failed_files": failed_files,
             },
@@ -90,6 +93,7 @@ async def upload_file(files: list[UploadFile] = File(...)):
         "status_code": status.HTTP_200_OK,
         "status_desc": "Success",
         "message": "Files uploaded successfully",
+        "total_files_count": len(uploaded_files),
         "uploaded_files": uploaded_files,
     }
 
