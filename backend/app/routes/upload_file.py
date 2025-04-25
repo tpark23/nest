@@ -28,6 +28,8 @@ async def upload_file(files: list[UploadFile] = File(...)):
         - Duplicate files (files with the same name as an existing file in the upload directory) will be rejected.
         - Successfully uploaded files are saved to the specified upload directory.
     """
+    # Clear the upload directory before processing new files
+    clear_upload_dir()
 
     # Maintain the uploaded files
     uploaded_files = []
@@ -61,3 +63,12 @@ async def upload_file(files: list[UploadFile] = File(...)):
         "uploaded_files": uploaded_files,
         "failed_files": failed_files
     }
+
+def clear_upload_dir():
+    """
+    Clears all files in the upload directory.
+    """
+    for filename in os.listdir(UPLOAD_DIR):
+        file_path = os.path.join(UPLOAD_DIR, filename)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
