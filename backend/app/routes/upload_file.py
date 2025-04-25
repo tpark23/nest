@@ -1,5 +1,6 @@
 import os
-from fastapi import APIRouter, File, UploadFile, HTTPException
+from fastapi import APIRouter, File, UploadFile, HTTPException, status
+from fastapi.responses import JSONResponse
 from controllers.statement_controller import *
 from services.transactions_service import *
 
@@ -59,9 +60,37 @@ async def upload_file(files: list[UploadFile] = File(...)):
         except Exception as e:
             failed_files.append({"filename": file.filename, "error": str(e)})
 
+    # 400 Bad Request if no files were uploaded successfully
+    if not uploaded_files: 
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={
+                "status_code": status.HTTP_400_BAD_REQUEST,
+                "status_desc": "Bad Request",
+                "message": "No files were uploaded successfully",
+                "failed_files": failed_files,
+            },
+        )
+        
+    # 207 Partial Success
+    if failed_files:
+        return JSONResponse(
+            status_code=status.HTTP_207_MULTI_STATUS,
+            content={
+                "status_code": status.HTTP_207_MULTI_STATUS,
+                "status_desc": "Partial Success",
+                "message": "Some files were not uploaded successfully",
+                "uploaded_files": uploaded_files,
+                "failed_files": failed_files,
+            },
+        )
+    
+    # 200 OK if all files were uploaded successfully
     return {
+        "status_code": status.HTTP_200_OK,
+        "status_desc": "Success",
+        "message": "Files uploaded successfully",
         "uploaded_files": uploaded_files,
-        "failed_files": failed_files
     }
 
 def clear_upload_dir():
