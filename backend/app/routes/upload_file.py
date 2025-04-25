@@ -19,9 +19,9 @@ async def upload_file(files: list[UploadFile] = File(...)):
     Args:
         files (list[UploadFile]): A list of files to be uploaded. Each file must be a PDF.
     Returns:
-        dict: A dictionary containing:
-            - "uploaded_files" (list[dict]): A list of successfully uploaded files with their filenames and statuses.
-            - "failed_files" (list[dict]): A list of files that failed to upload with their filenames and error messages.
+        200 Success if all files are uploaded successfully.
+        207 Partial Success if some files fail to upload.
+        400 Bad Request if no files were uploaded successfully.
     Raises:
         Exception: If an error occurs while saving a file to the upload directory.
     Notes:
