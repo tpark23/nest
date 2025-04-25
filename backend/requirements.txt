@@ -3,7 +3,7 @@ fastapi[standard]
 uvicorn
 
 # Data
-pypdf
+pdfplumber
 pandas
 
 httptools
