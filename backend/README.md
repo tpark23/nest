@@ -11,5 +11,5 @@
 `pip install -r requirements.txt`
 
 4. Run Application
-dev - `fastapi dev main.py`, 
-prod - `fastapi main.py`
+dev - `fastapi dev app/main.py`, 
+prod - `fastapi app/main.py`
