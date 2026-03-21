@@ -1,0 +1,15 @@
+# Backend
+
+## Steps 
+1. Download Virtual Environment
+`$ python -m venv venv`
+
+2. Activate Virtual Environment
+`$ source venv/scripts/activate`
+
+3. Install dependencies
+`pip install -r requirements.txt`
+
+4. Run Application
+dev - `fastapi dev main.py`, 
+prod - `fastapi main.py`

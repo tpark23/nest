@@ -1,0 +1,7 @@
+# FastAPI
+fastapi[standard]
+uvicorn
+
+# Data Extraction
+pdfplumber
+pandas
