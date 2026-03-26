@@ -5,3 +5,7 @@ uvicorn
 # Data Extraction
 pdfplumber
 pandas
+
+# Data Validation
+pydantic
+pydantic_settings
