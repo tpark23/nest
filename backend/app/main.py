@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.routers import health, statements
+from app.routes import health, statements
 
 app = FastAPI()
 
