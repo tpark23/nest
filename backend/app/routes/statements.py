@@ -87,3 +87,38 @@ async def upload_statements(files: list[UploadFile] = File(...)):
             "files": result,
         },
     )
+
+@router.post("/parse")
+async def parse_statements(files_path: str = settings.UPLOAD_DIR):
+    """
+    Parses one or more bank statements to extract relevant financial data.
+
+    Args:
+        folder (str): The directory containing the statement files to be parsed.
+
+    Raises:
+        HTTPException: If no files are uploaded or if the number of files exceeds the limit.
+        HTTPException: If an error occurs while processing the files.
+    """
+    
+    # Validate there are files to be parsed
+    if not files_path:
+        raise HTTPException(status_code=400, detail="No files available to be parsed")
+
+    # Process the uploaded files
+    try:
+        result = await parse_statements(files_path)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error occurred while processing files: {str(e)}"
+        )
+
+    return JSONResponse(
+        status_code=status.HTTP_200_OK,
+        content={
+            "status_desc": "Success",
+            "message": "Files parsed successfully",
+            "files": result,
+        },
+    )
+    
